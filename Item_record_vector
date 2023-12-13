@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+// Define a structure for item records
+struct Item {
+    string name;
+    int id;
+    double price;
+};
+
+// Function to display an item record
+void displayItem(const Item &item) {
+    cout << "ID: " << item.id<< ", Name: " << item.name << ", Price: " << item.price << endl;
+}
+
+int main() {
+    // Create a vector to store item records
+    vector<Item> items;
+
+    // Adding some sample item records to the vector
+    items.push_back({"ItemA", 101, 25.50});
+    items.push_back({"ItemB", 102, 30.75});
+    items.push_back({"ItemC", 103, 15.20});
+    items.push_back({"ItemD", 104, 40.00});
+
+    // Displaying the initial list of items
+    cout << "List of items before sorting:" << endl;
+    for (const auto &item : items) {
+        displayItem(item);
+    }
+
+    // Sorting the items based on their IDs
+    sort(items.begin(), items.end(), [](const Item &a, const Item &b) {
+        return a.id < b.id;
+    });
+
+    // Displaying the sorted list of items
+    cout << "\nList of items after sorting by ID:" << endl;
+    for (const auto &item : items) {
+        displayItem(item);
+    }
+
+    // Searching for an item by ID (binary search requires a sorted container)
+    int searchID = 103;
+    auto it = lower_bound(items.begin(), items.end(), searchID, [](const Item &a, int val) {
+        return a.id < val;
+    });
+
+    if (it != items.end() && it->id == searchID) {
+        cout << "\nItem with ID " << searchID << " found:" << endl;
+        displayItem(*it);
+    } else {
+        cout << "\nItem with ID " << searchID << " not found." << endl;
+    }
+
+    return 0;
+}
+
