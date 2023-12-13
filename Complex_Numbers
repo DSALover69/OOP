@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+
+class Complex {
+public:
+    float real;
+    float img;
+
+    Complex() {
+        real = 0;
+        img = 0;
+    }
+
+    Complex(float a, float b) {
+        real = a;
+        img = b;
+    }
+
+    Complex operator+(const Complex& c2) {
+        Complex temp;
+        temp.real = real + c2.real;
+        temp.img = img + c2.img;
+        return temp;
+    }
+
+    Complex operator*(const Complex& c2) {
+        Complex temp;
+        temp.real = real * c2.real;
+        temp.img = img * c2.img;
+        return temp;
+    }
+
+    void display() {
+        cout << "Result: " << real << " + " << img << "i" << endl;
+    }
+};
+
+int main() {
+    float real1, img1, real2, img2;
+
+    cout << "Enter real part for the first complex number:" << endl;
+    cin >> real1 ;
+    cout << "Enter  imaginary part for first complex number:" << endl;
+    cin  >> img1;  
+
+    cout << "Enter real  part for the second complex number:" << endl;
+    cin >> real2 ;
+    cout << "Enter  imaginary part for the second complex number:" << endl;
+    cin  >> img2;  
+
+    Complex obj1(real1, img1);
+    Complex obj2(real2, img2);
+
+    cout<<"The addition of 2 complex numbers is "<<endl;
+    Complex obj3 = obj1 + obj2;
+    obj3.display();
+
+    cout<<"The multiplication of 2 complex numbers is "<<endl;
+    Complex obj4 = obj1 * obj2;
+     obj4.display();
+
+    return 0;
+}
