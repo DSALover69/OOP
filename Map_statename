@@ -1,0 +1,70 @@
+// Write a program in C++ to use map 
+// associative container. The keys will be the 
+// names of states and the values will be the 
+// populations of the states. When the 
+// program runs, the user is prompted to type 
+// the name of a state. The program then 
+// looks in the map, using the state name as 
+// an index and returns the 
+// population of the state. 
+
+
+
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main() {
+    // Create a map to store Indian state populations
+    map<string, long long> statePopulations;
+
+    // Populate the map with sample data
+    statePopulations["Andhra Pradesh"] = 53903393;
+    statePopulations["Arunachal Pradesh"] = 1570458;
+    statePopulations["Assam"] = 35607039;
+    statePopulations["Bihar"] = 124799926;
+    statePopulations["Chhattisgarh"] = 29436231;
+    statePopulations["Goa"] = 1542733;
+    statePopulations["Gujarat"] = 60439692;
+    statePopulations["Haryana"] = 28204692;
+    statePopulations["Himachal Pradesh"] = 7451955;
+    statePopulations["Jharkhand"] = 38593948;
+    statePopulations["Karnataka"] = 67562686;
+    statePopulations["Kerala"] = 35699443;
+    statePopulations["Madhya Pradesh"] = 85358965;
+    statePopulations["Maharashtra"] = 123144223;
+    statePopulations["Manipur"] = 2570390;
+    statePopulations["Meghalaya"] = 3366710;
+    statePopulations["Mizoram"] = 1239244;
+    statePopulations["Nagaland"] = 2146570;
+    statePopulations["Odisha"] = 43747493;
+    statePopulations["Punjab"] = 30141373;
+    statePopulations["Rajasthan"] = 81032689;
+    statePopulations["Sikkim"] = 671720;
+    statePopulations["Tamil Nadu"] = 77841267;
+    statePopulations["Telangana"] = 39362732;
+    statePopulations["Tripura"] = 4169794;
+    statePopulations["Uttar Pradesh"] = 224979452;
+    statePopulations["Uttarakhand"] = 11141048;
+    statePopulations["West Bengal"] = 99609303;
+
+    // Prompt the user to enter the name of an Indian state
+    string stateName;
+    cout << "Enter the name of an Indian state: ";
+    cin>>stateName;
+
+    // Use the entered state name to look up the population
+    auto it = statePopulations.find(stateName);
+
+    if (it != statePopulations.end()) {
+        // State found, display the population
+        cout << "Population of " << stateName << ": " << it->second << endl;
+    } else {
+        // State not found
+        cout << "Population information for " << stateName << " not found." << endl;
+    }
+
+    return 0;
+}
