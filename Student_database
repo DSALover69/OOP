@@ -1,0 +1,151 @@
+#include <iostream>
+#include <cstring>
+
+class StudentInformation {
+private:
+    char* name;
+    int rollNumber;
+    char* className;
+    char division;
+    char* dateOfBirth;
+    char* bloodGroup;
+    char* contactAddress;
+    long long int telephoneNumber;
+    char* drivingLicenseNumber;
+
+    // Static member
+    static int totalStudents;
+
+public:
+    // Constructors and destructor
+    StudentInformation();
+    StudentInformation(const char* n, int roll, const char* cls, char div, const char* dob,
+                       const char* blood, const char* contact, long long int phone,
+                       const char* license);
+    StudentInformation(const StudentInformation& other);
+    ~StudentInformation();
+
+    // Member functions
+    void displayInformation() const;
+    static int getTotalStudents();
+
+    // Friend class
+    friend class StudentDatabase;
+
+    // Inline code
+    inline void setRollNumber(int roll) { rollNumber = roll; }
+
+    // Exception handling
+    void validatePhoneNumber(long long int phone);
+};
+
+// Initialize static member
+int StudentInformation::totalStudents = 0;
+
+// Constructor definitions
+StudentInformation::StudentInformation() : name(nullptr), rollNumber(0), className(nullptr),
+                                           division('\0'), dateOfBirth(nullptr),
+                                           bloodGroup(nullptr), contactAddress(nullptr),
+                                           telephoneNumber(0), drivingLicenseNumber(nullptr) {
+    totalStudents++;
+}
+
+StudentInformation::StudentInformation(const char* n, int roll, const char* cls, char div,
+                                       const char* dob, const char* blood, const char* contact,
+                                       long long int phone, const char* license)
+    : rollNumber(roll), division(div), telephoneNumber(phone) {
+    // Allocate memory for dynamic attributes
+    name = new char[strlen(n) + 1];
+    strcpy(name, n);
+
+    className = new char[strlen(cls) + 1];
+    strcpy(className, cls);
+
+    dateOfBirth = new char[strlen(dob) + 1];
+    strcpy(dateOfBirth, dob);
+
+    bloodGroup = new char[strlen(blood) + 1];
+    strcpy(bloodGroup, blood);
+
+    contactAddress = new char[strlen(contact) + 1];
+    strcpy(contactAddress, contact);
+
+    drivingLicenseNumber = new char[strlen(license) + 1];
+    strcpy(drivingLicenseNumber, license);
+
+    totalStudents++;
+}
+
+// Copy constructor
+StudentInformation::StudentInformation(const StudentInformation& other)
+    : rollNumber(other.rollNumber), division(other.division), telephoneNumber(other.telephoneNumber) {
+    // Allocate memory for dynamic attributes
+    name = new char[strlen(other.name) + 1];
+    strcpy(name, other.name);
+
+    className = new char[strlen(other.className) + 1];
+    strcpy(className, other.className);
+
+    dateOfBirth = new char[strlen(other.dateOfBirth) + 1];
+    strcpy(dateOfBirth, other.dateOfBirth);
+
+    bloodGroup = new char[strlen(other.bloodGroup) + 1];
+    strcpy(bloodGroup, other.bloodGroup);
+
+    contactAddress = new char[strlen(other.contactAddress) + 1];
+    strcpy(contactAddress, other.contactAddress);
+
+    drivingLicenseNumber = new char[strlen(other.drivingLicenseNumber) + 1];
+    strcpy(drivingLicenseNumber, other.drivingLicenseNumber);
+
+    totalStudents++;
+}
+
+// Destructor
+StudentInformation::~StudentInformation() {
+    delete[] name;
+    delete[] className;
+    delete[] dateOfBirth;
+    delete[] bloodGroup;
+    delete[] contactAddress;
+    delete[] drivingLicenseNumber;
+
+    totalStudents--;
+}
+
+// Member function definitions
+void StudentInformation::displayInformation() const {
+    std::cout << "Name: " << name << "\nRoll Number: " << rollNumber
+              << "\nClass: " << className << "\nDivision: " << division
+              << "\nDate of Birth: " << dateOfBirth << "\nBlood Group: " << bloodGroup
+              << "\nContact Address: " << contactAddress << "\nTelephone Number: " << telephoneNumber
+              << "\nDriving License Number: " << drivingLicenseNumber << "\n";
+}
+
+int StudentInformation::getTotalStudents() {
+    return totalStudents;
+}
+
+// Friend class definition
+class StudentDatabase {
+public:
+    static void displayTotalStudents() {
+        std::cout << "Total Students: " << StudentInformation::totalStudents << "\n";
+    }
+};
+
+// Inline code example
+int main() {
+    StudentInformation student1("John Doe", 101, "Class 10", 'A', "01-01-2000",
+                                "AB+", "123 Main St", 1234567890, "DL12345");
+
+    student1.displayInformation();
+
+    // Using inline code
+    student1.setRollNumber(102);
+
+    // Using static member function
+    StudentDatabase::displayTotalStudents();
+
+    return 0;
+}
