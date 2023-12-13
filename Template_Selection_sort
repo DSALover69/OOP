@@ -1,0 +1,65 @@
+
+// Write a function template for selection sort 
+// that inputs, sorts and outputs an integer 
+// array and a float array. 
+
+#include<iostream>
+using namespace std;
+template<typename T>
+void selection_sort(T arr[],int size)
+{
+
+    for(int i = 0; i< size-1 ; i++)
+    {
+        int MinIndex = i ;
+        for(int j = i+1 ; j<size ; j++)
+        {
+            if(arr[j] < arr[MinIndex])
+            {
+                MinIndex = j;
+            }
+        }
+    
+
+    T temp = arr[i];
+    arr[i] = arr[MinIndex];
+    arr[MinIndex] = temp;
+
+
+    }
+}
+
+
+template<typename T>
+void display(const T arr[] , int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout<<"  "<<arr[i];
+
+    }   
+}
+
+int main(){
+
+    int arr[10]={10,9,8,7,6,5,4,3,2,1};
+    float brr[5]={5.5,2.4,3.2,6.7,1.2};
+
+
+    cout<<"BEFORE SORTING" <<endl ;
+    display(arr,10);
+
+    cout<<endl<<"AFTER SORTING"<<endl;
+    selection_sort(arr,10);
+    display(arr,10);
+    
+    cout<<endl;
+
+    cout<<"BEFORE SORTING" <<endl ;
+    display(brr,5);
+
+    cout<<endl<<"AFTER SORTING"<<endl;
+    selection_sort(brr,5);
+    display(brr,5);
+    return 0;
+}
