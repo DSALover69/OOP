@@ -30,34 +30,42 @@ public:
         return temp;
     }
 
-    void display() {
+    void display() const {
         cout << "Result: " << real << " + " << img << "i" << endl;
     }
+
+    // Overloaded stream insertion operator (<<)
+    friend ostream& operator<<(ostream& output, const Complex& c);
+
+    // Overloaded stream extraction operator (>>)
+    friend istream& operator>>(istream& input, Complex& c);
 };
 
+ostream& operator<<(ostream& output, const Complex& c) {
+    output << c.real << " + " << c.img << "i";
+    return output;
+}
+
+istream& operator>>(istream& input, Complex& c) {
+    cout << "Enter real part: ";
+    input >> c.real;
+    cout << "Enter imaginary part: ";
+    input >> c.img;
+    return input;
+}
+
 int main() {
-    float real1, img1, real2, img2;
+    Complex obj1, obj2;
 
-    cout << "Enter real part for the first complex number:" << endl;
-    cin >> real1 ;
-    cout << "Enter  imaginary part for first complex number:" << endl;
-    cin  >> img1;  
+    cout << "Enter the first complex number:" << endl;
+    cin >> obj1;
 
-    cout << "Enter real  part for the second complex number:" << endl;
-    cin >> real2 ;
-    cout << "Enter  imaginary part for the second complex number:" << endl;
-    cin  >> img2;  
+    cout << "Enter the second complex number:" << endl;
+    cin >> obj2;
 
-    Complex obj1(real1, img1);
-    Complex obj2(real2, img2);
+    cout << "The addition of 2 complex numbers is " << obj1 + obj2 << endl;
 
-    cout<<"The addition of 2 complex numbers is "<<endl;
-    Complex obj3 = obj1 + obj2;
-    obj3.display();
-
-    cout<<"The multiplication of 2 complex numbers is "<<endl;
-    Complex obj4 = obj1 * obj2;
-     obj4.display();
+    cout << "The multiplication of 2 complex numbers is " << obj1 * obj2 << endl;
 
     return 0;
 }
