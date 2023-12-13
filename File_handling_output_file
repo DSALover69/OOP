@@ -1,0 +1,49 @@
+//  Write a C++ program that creates an 
+// output file, writes information to it, closes 
+// the file, open it again as an input file and 
+// read the information from the file. 
+
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+    // Creating an output file
+    ofstream outFile("output.txt");
+
+    // Check if the file is successfully opened
+    if (!outFile) {
+        cerr << "Error opening output file!\n";
+        return 1;
+    }
+
+    // Writing information to the file
+    outFile << "Hello, this is some information.\n";
+    outFile << "This is the second line of information.\n";
+
+    // Closing the output file
+    outFile.close();
+
+    // Opening the file as an input file
+    ifstream inFile("output.txt");
+
+    // Check if the file is successfully opened
+    if (!inFile) {
+        cerr << "Error opening input file!\n";
+        return 1;
+    }
+
+    // Reading information from the file
+    cout << "Reading information from the file:\n";
+    string line;
+    while (getline(inFile, line)) {
+        cout << line << endl;
+    }
+
+    // Closing the input file
+    inFile.close();
+
+    return 0;
+}
