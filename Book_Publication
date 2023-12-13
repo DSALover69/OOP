@@ -1,0 +1,128 @@
+
+// Imagine a publishing company which does 
+// marketing for book and audio cassette versions. 
+// Create a class publication that stores the title (a 
+// string) and price (type float) of publications. From 
+// this class derive two classes: book which adds a 
+// page count (type int) and tape which adds a playing 
+// time in minutes (type float). Write a program that 
+// instantiates the book and tape class, allows user to 
+// enter data and displays the data members. If an 
+// exception is caught, replace all the data member 
+// values with zero values. 
+
+
+#include<iostream>
+using namespace std;
+
+class Publication {
+public:
+    string title;
+    float price;
+
+    void add() {
+        cout << "Enter title of book: ";
+        cin >> title;
+        cout << "Enter price of book: ";
+        cin >> price;
+    }
+
+    void display() {
+        cout << "\n--------------------------------------------------";
+        cout << "\nTitle of book: " << title;
+        cout << "\nBook Price: " << price;
+    }
+};
+
+class Book : public Publication {
+public:
+    int pageCount;
+
+    void addBook() {
+        try {
+            add();
+            cout << "Enter page count of book: ";
+            cin >> pageCount;
+            if (pageCount <= 0) {
+                throw pageCount;
+            }
+        } catch(...) {
+            cout << "Enter a valid page count";
+            pageCount = 0;
+        }
+    }
+
+    void displayBook() {
+        display();
+        cout << "Page Count: " << pageCount;
+    }
+};
+
+class Tape : public Publication {
+public:
+    float playTime;
+
+    void addTape() {
+        try {
+            add();
+            cout << "Enter play time of tape: ";
+            cin >> playTime;
+            if (playTime <= 0) {
+                throw playTime;
+            }
+        } catch(...) {
+            cout << "Enter a valid playing time";
+            playTime = 0;
+        }
+    }
+
+    void displayTape() {
+        display();
+        cout << "Play Time: " << playTime;
+    }
+};
+
+int main() {
+    Book b1[10];
+    Tape t1[10];
+    int choice, bookCount = 0, tapeCount = 0;
+
+    do {
+        cout << "\n* * * * * PUBLICATION DATABASE SYSTEM * * * * *";
+        cout << "\n--------------------MENU-----------------------";
+        cout << "\n1. Add Information to Books";
+        cout << "\n2. Add Information to Tapes";
+        cout << "\n3. Display Books Information";
+        cout << "\n4. Display Tapes Information";
+        cout << "\n5. Exit";
+        cout << "\n\nEnter your choice : ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                b1[bookCount].addBook();
+                bookCount++;
+                break;
+            case 2:
+                t1[tapeCount].addTape();
+                tapeCount++;
+                break;
+            case 3:
+                cout << "\n* * * * BOOK PUBLICATION DATABASE SYSTEM * * * *";
+                for (int j = 0; j < bookCount; j++) {
+                    b1[j].displayBook();
+                }
+                break;
+            case 4:
+                cout << "\n* * * * TAPE PUBLICATION DATABASE SYSTEM * * * *";
+                for (int j = 0; j < tapeCount; j++) {
+                    t1[j].displayTape();
+                }
+                break;
+            case 5:
+                exit(0);
+        }
+    } while (choice != 5);
+
+    return 0;
+}
